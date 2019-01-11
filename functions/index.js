@@ -10,12 +10,12 @@ const functions = require('firebase-functions'),
 //  response.send("Hello from Firebase!");
 // });
 
-app.get('profiles', function(req, res) {
+app.get('*', function(req, res) {
 	res.send("Hello World!");
 });
 
-const api = functions.https.onRequest(app);
+const profiles = functions.https.onRequest(app);
 
 module.exports = {
-	api
+	profiles
 }
