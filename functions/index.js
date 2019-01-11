@@ -13,19 +13,19 @@ database = admin.database();
 //  response.send("Hello from Firebase!");
 // });
 
-app.get('/:start/:end', (req, res) => {
+app.get('/:start/:end', async (req, res) => {
 	let start = req.params.start,
 		end = req.params.end;
 	
 	if(end < start || end - start > 50){
 		res.status(400).send("Invalid start/end values");
 	}
-	let result = database.ref('tocca-project/user_profile').startAt(start).endAt(end-1);
+	let result = await database.ref('tocca-project/user_profile').startAt(start).endAt(end-1);
 	res.json(result);
 });
 
-app.get('/', (req, res) => {
-	let result = database.ref('tocca-project/user_profile').startAt(0).endAt(49);
+app.get('/', async (req, res) => {
+	let result = await database.ref('tocca-project/user_profile').startAt(0).endAt(49);
 	res.json(result);
 });
 
