@@ -20,13 +20,13 @@ app.get('/:start/:end', (req, res) => {
 	if(end < start || end - start > 50){
 		res.status(400).send("Invalid start/end values");
 	}
-	database.ref('tocca-project/user_profile').startAt(start).endAt(end-1)
+	database.ref('tocca-project/user_profile').startAt(start).endAt(end-1).once("value")
 		.then((result) => {return res.json(result)})
 		.catch((error) => {res.status(500).send(error)});
 });
 
 app.get('/', (req, res) => {
-	database.ref('tocca-project/user_profile').startAt(0).endAt(49)
+	database.ref('tocca-project/user_profile').startAt(0).endAt(49).once("value")
 		.then((result) => {return res.json(result)})
 		.catch((error) => {res.status(500).send(error)});
 });
