@@ -11,7 +11,13 @@ const functions = require('firebase-functions'),
 // });
 
 app.get('/:start/:end', function(req, res) {
-	res.send(req.params.start+" "+req.params.end);
+	let start = req.params.start,
+		end = req.params.end;
+	
+	if(end < start || end - start > 50){
+		res.sendStatus(400).send("Invalid start/end values")
+	}
+	res.send(start+" "+end);
 });
 
 app.get('/', function(req, res) {
