@@ -21,12 +21,14 @@ app.get('/:start/:end', (req, res) => {
 		res.status(400).send("Invalid start/end values");
 	}
 	database.ref('tocca-project/user_profile').startAt(start).endAt(end-1)
-		.then((result) => {res.json(result)});
+		.then((result) => {res.json(result)})
+		.catch((error) => {res.status(500).send(error)});
 });
 
 app.get('/', (req, res) => {
 	database.ref('tocca-project/user_profile').startAt(0).endAt(49)
-		.then((result) => {res.json(result)});
+		.then((result) => {res.json(result)})
+		.catch((error) => {res.status(500).send(error)});
 });
 
 const profiles = functions.https.onRequest(app);
