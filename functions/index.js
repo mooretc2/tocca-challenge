@@ -10,7 +10,11 @@ const functions = require('firebase-functions'),
 //  response.send("Hello from Firebase!");
 // });
 
-app.get('*', function(req, res) {
+app.get('/:start/:end', function(req, res) {
+	res.send(start+" "+end);
+});
+
+app.get('/', function(req, res) {
 	res.send("Hello World!");
 });
 
