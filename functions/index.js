@@ -2,7 +2,7 @@ const functions = require('firebase-functions'),
 	admin = require('firebase-admin'),
 	express = require('express'),
 	app = express(),
-	database = firebase.database();
+	database = functions.database();
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
