@@ -3,16 +3,15 @@ const functions = require('firebase-functions'),
 	express = require('express'),
 	app = express();
 	
+// Initialize admin with firebase config
 admin.initializeApp(functions.config().firebase);
 const database = admin.database();
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
-
+/**
+ * Responds with all profiles with keys from $start to $end.
+ * If $end - $start > 50 or if $end < $start, returns 400 status.
+ * If there is a db error, returns 500 status.
+ */
 app.get('/:start/:end', (req, res) => {
 	let start = req.params.start,
 		end = req.params.end;
@@ -25,12 +24,17 @@ app.get('/:start/:end', (req, res) => {
 		.catch((error) => {res.status(500).send(error)});
 });
 
+/**
+ * Responds with the first 50 profiles ordered by key.
+ * If there is a db error, returns 500 status.
+ */
 app.get('/', (req, res) => {
 	database.ref('user_profile').orderByKey().startAt('0').endAt('49').once("value")
 		.then((result) => {return res.json(result)})
 		.catch((error) => {res.status(500).send(error)});
 });
 
+// Tell default firebase handler to use Express.
 const profiles = functions.https.onRequest(app);
 
 module.exports = {
