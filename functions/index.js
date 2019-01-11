@@ -11,7 +11,7 @@ const functions = require('firebase-functions'),
 // });
 
 app.get('/:start/:end', function(req, res) {
-	res.send(start+" "+end);
+	res.send(req.params.start+" "+req.params.end);
 });
 
 app.get('/', function(req, res) {
