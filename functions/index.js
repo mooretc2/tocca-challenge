@@ -17,12 +17,12 @@ app.get('/:start/:end', (req, res) => {
 	if(end < start || end - start > 50){
 		res.status(400).send("Invalid start/end values");
 	}
-	let result = functions.database.ref('tocca-project/user_profile').orderByKey().startAt(start).endAt(end-1);
+	let result = functions.database.ref('tocca-project/user_profile').startAt(start).endAt(end-1);
 	res.json(result);
 });
 
 app.get('/', (req, res) => {
-	let result = functions.database.ref('tocca-project/user_profile').orderByKey().startAt(0).endAt(49);
+	let result = functions.database.ref('tocca-project/user_profile').startAt(0).endAt(49);
 	res.json(result);
 });
 
